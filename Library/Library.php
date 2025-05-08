@@ -1,0 +1,148 @@
+<?php
+namespace Library;
+
+class Library
+{
+
+    private $isRunning;
+    private $firstAccess;
+    private $userInput;
+
+    public function __construct()
+    {
+        $this->firstAccess = true;
+        $this->isRunning   = false;
+    }
+
+    /**
+     * Init the library system, here we will keep the loop
+     * running until exit is set to false (option 4 in the menu)
+     */
+    public function init()
+    {
+        $this->isRunning = true;
+
+        while ($this->isRunning) {
+            $this->userInput = $this->getUserInput();
+            $this->handleMenuSelection();
+        }
+    }
+
+    /**
+     * Get the welcome message
+     * @return string
+     */
+    private function getWelcomeMessage(): string
+    {
+        $welcomeMessage = "\n=============================\n
+        Welcome to Maddington Library book management system \n
+        Select one option below:";
+        return $welcomeMessage;
+    }
+
+    /**
+     * Get the menu
+     * @return string
+     */
+    private function getMenu(): string
+    {
+        $menu = "\n=============================\n
+        1. Add a new book \n
+        2. List all books \n
+        3. Search for a book \n
+        4. Delete a book \n
+        5. Add resource \n
+        6. Exit
+        \n=============================\n";
+        return $menu;
+    }
+
+    /**
+     * Get the user input
+     * @return int
+     */
+    private function getUserInput(): int
+    {
+
+        if ($this->firstAccess) {
+            echo $this->getWelcomeMessage();
+            $this->firstAccess = false;
+        }
+
+        $readLine = (int) readline($this->getMenu() . "Enter your choice: ");
+
+        return $readLine;
+    }
+
+    /**
+     * Handle the menu selection
+     * @return void
+     */
+    private function handleMenuSelection()
+    {
+
+        switch ($this->userInput) {
+            case 1:
+
+                $book = new Book();
+
+                $bookName      = readline("Enter the book name: ");
+                $bookIsbn      = readline("Enter the book ISBN: ");
+                $bookPublisher = readline("Enter the book publisher: ");
+                $bookAuthor    = readline("Enter the book author: ");
+
+                $book->addBook($bookName, $bookIsbn, $bookPublisher, $bookAuthor);
+                $book->saveBook();
+
+                break;
+
+            case 2:
+
+                $book = new Book();
+                $book->listBooks();
+
+                break;
+
+            case 3:
+
+                $book   = new Book();
+                $bookId = readline("Enter the book id: ");
+                $book->getBookById($bookId);
+
+                break;
+
+            case 4:
+
+                $book   = new Book();
+                $bookId = readline("Enter the book id: ");
+                $book->deleteResourceById($bookId, 'books');
+
+                break;
+
+            case 5:
+
+                $category = readline("Enter the resource category: ");
+                $otherResource = new OtherResource($category);
+                
+                $res_name = readline("Enter the resource name: ");
+                $res_description = readline("Enter the resource description: ");
+                $res_brand = readline("Enter the resource brand: ");
+
+                $otherResource->addOtherResource($res_name, $res_description, $res_brand);
+                $otherResource->saveResource();
+
+                break;
+
+            case 6:
+
+                $this->isRunning = false;
+
+                break;
+
+            default:
+                echo "Invalid option";
+                break;
+        }
+    }
+
+}
