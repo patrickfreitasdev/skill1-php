@@ -50,9 +50,10 @@ class Library
         1. Add a new book \n
         2. List all books \n
         3. Search for a book \n
-        4. Delete a book \n
-        5. Add resource \n
-        6. Exit
+        4. Sort books by name \n
+        5. Delete a book \n
+        6. Add resource \n
+        7. Exit
         \n=============================\n";
         return $menu;
     }
@@ -113,27 +114,34 @@ class Library
 
             case 4:
 
+                $book = new Book();
+                $book->sortBookByName();
+
+                break;
+
+            case 5:
+
                 $book   = new Book();
                 $bookId = readline("Enter the book id: ");
                 $book->deleteResourceById($bookId, 'books');
 
                 break;
 
-            case 5:
+            case 6:
 
-                $category = readline("Enter the resource category: ");
+                $category      = readline("Enter the resource category: ");
                 $otherResource = new OtherResource($category);
-                
-                $res_name = readline("Enter the resource name: ");
+
+                $res_name        = readline("Enter the resource name: ");
                 $res_description = readline("Enter the resource description: ");
-                $res_brand = readline("Enter the resource brand: ");
+                $res_brand       = readline("Enter the resource brand: ");
 
                 $otherResource->addOtherResource($res_name, $res_description, $res_brand);
                 $otherResource->saveResource();
 
                 break;
 
-            case 6:
+            case 7:
 
                 $this->isRunning = false;
 

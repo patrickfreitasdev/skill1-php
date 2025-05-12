@@ -14,10 +14,9 @@ Once all the information on the client questionnaire is completed, develop the s
 
 Maddington Library management system is designed to help to manage the books and its authors, the options included are:
 
-- Create, delete and list books
-- Add Author,
+- Create, delete and list books, including Author
 - Search Book, 
-- Sort by ASC and DESC order
+- Sort by book name
 
 ### Starting the application
 

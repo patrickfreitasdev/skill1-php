@@ -12,7 +12,7 @@ class Book extends LibraryResource
     private Author $author;
 
     /**
-     * 
+     *
      * We can hardcode the books category here, but in future we could have it dynamic to accept other types example magazines, etc.
      * @param string $resourceCategory
      * @param string $name
@@ -68,9 +68,11 @@ class Book extends LibraryResource
     /**
      * List all the books from the JSON file
      */
-    public function listBooks()
+    public function listBooks($books = [])
     {
-        $books = parent::getFileContentByFileName('books');
+        if (empty($books)) {
+            $books = parent::getFileContentByFileName('books');
+        }
 
         if (empty($books)) {
             echo "No books found";
@@ -116,6 +118,27 @@ class Book extends LibraryResource
             echo "Book not found";
             echo "\n----------------------------------------\n";
         }
+    }
+
+    /**
+     * Sort the books by name, using usort https://dev.to/gbhorwood/php-powerful-sorting-with-usort-2fml
+     * @return void
+     *
+     */
+    public function sortBookByName()
+    {
+        $books = parent::getFileContentByFileName('books');
+
+        if (empty($books)) {
+            echo "No books to sort.\n";
+            return;
+        }
+
+        usort($books, function ($a, $b) {
+            return strcasecmp($a['name'], $b['name']);
+        });
+
+        $this->listBooks($books);
     }
 
 }

@@ -39,22 +39,22 @@ class LibraryResource
     protected function saveResourceInJSON($fileName, $resourceData): void
     {
 
-        // Dynamically add the resource category and ID to the file
-        $resourceData['resourceCategory'] = $this->resourceCategory;
-        $resourceData['resourceId']       = $this->resourceId;
+        $orderedData = [
+            'resourceId'       => $this->resourceId,
+            'resourceCategory' => $this->resourceCategory,
+            ...$resourceData,
+        ];
 
-        if (! file_exists('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json')) {
-            file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json', '');
+        if (file_exists('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json')) {
+            $existingData = file_get_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json');
+            $existingData = json_decode($existingData, true);
+        } else {
+            $existingData = [];
         }
 
-        // Prevent the code from overwriting the existing data
-        $existingData = file_get_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json');
+        $existingData[] = $orderedData;
 
-        $existingData = json_decode($existingData, true);
-
-        $existingData[] = $resourceData;
-
-        $jsonData = json_encode($existingData);
+        $jsonData = json_encode($existingData, JSON_PRETTY_PRINT);
 
         file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json', $jsonData);
 
