@@ -14,11 +14,15 @@ class LibraryResource
 
     protected $resourceCategory;
     protected $resourceId;
+    private $fileItems;
 
     public function __construct($resourceCategory)
     {
         $this->resourceCategory = $resourceCategory;
         $this->resourceId       = $this->generateUniqueId();
+
+        // preload the file items
+        $this->fileItems = $this->getFileContentByFileName($this->resourceCategory);
     }
 
     /**
@@ -52,9 +56,16 @@ class LibraryResource
             $existingData = [];
         }
 
+        // Make sure unique ID is generated because the PHP uniqid function may not be 100% unique
+        foreach ($existingData as $key => $value) {
+            if ($value['resourceId'] === $orderedData['resourceId']) {
+                $orderedData['resourceId'] = $this->generateUniqueId();
+            }
+        }
+
         $existingData[] = $orderedData;
 
-        $jsonData = json_encode($existingData, JSON_PRETTY_PRINT);
+        $jsonData = json_encode($existingData);
 
         file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json', $jsonData);
 
@@ -69,8 +80,21 @@ class LibraryResource
      */
     protected function getFileContentByFileName(string $fileName): array
     {
-        $fileContent = file_get_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json');
-        return json_decode($fileContent, true);
+
+        if (file_exists('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json')) {
+
+            $fileContent = file_get_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json');
+            $fileContent = json_decode($fileContent, true);
+
+            if (is_array($fileContent)) {
+                return $fileContent;
+            } else {
+                return [];
+            }
+            
+        } else {
+            return [];
+        }
     }
 
     /**
@@ -80,7 +104,7 @@ class LibraryResource
      */
     protected function locateKeyById(string $id): int | false
     {
-        $fileContent = $this->getFileContentByFileName($this->resourceCategory);
+        $fileContent = $this->fileItems;
         $key         = array_search($id, array_column($fileContent, 'resourceId'));
         return $key;
     }
@@ -94,7 +118,7 @@ class LibraryResource
     public function deleteResourceById(string $id, string $filename): void
     {
 
-        $items = $this->getFileContentByFileName($filename);
+        $items = $this->fileItems;
         $key   = $this->locateKeyById($id);
 
         if ($key !== false) {
@@ -110,4 +134,12 @@ class LibraryResource
 
     }
 
+    /**
+     * Get the file items
+     * @return array
+     */
+    protected function getFileItems(): array
+    {
+        return $this->fileItems ?? [];
+    }
 }

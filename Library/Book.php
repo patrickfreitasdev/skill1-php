@@ -71,7 +71,7 @@ class Book extends LibraryResource
     public function listBooks($books = [])
     {
         if (empty($books)) {
-            $books = parent::getFileContentByFileName('books');
+            $books = parent::getFileItems();
         }
 
         if (empty($books)) {
@@ -92,14 +92,14 @@ class Book extends LibraryResource
     }
 
     /**
-     * Get the book by the id, it will return the bookItem function or void ( printing the message book not found )
+     * Get the book by the id and print out the book details
      * @param string $id
      * @return array|void
      */
     public function getBookById(string $id)
     {
 
-        $books = parent::getFileContentByFileName('books');
+        $books = parent::getFileItems();
         $key   = parent::locateKeyById($id);
 
         // Array search retruns the index,
@@ -127,7 +127,7 @@ class Book extends LibraryResource
      */
     public function sortBookByName()
     {
-        $books = parent::getFileContentByFileName('books');
+        $books = parent::getFileItems();
 
         if (empty($books)) {
             echo "No books to sort.\n";

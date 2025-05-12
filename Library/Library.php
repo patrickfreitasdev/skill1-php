@@ -53,7 +53,10 @@ class Library
         4. Sort books by name \n
         5. Delete a book \n
         6. Add resource \n
-        7. Exit
+        7. List resources \n
+        8. Search for a resource \n
+        9. Delete a resource \n
+        10. Exit
         \n=============================\n";
         return $menu;
     }
@@ -137,18 +140,40 @@ class Library
                 $res_brand       = readline("Enter the resource brand: ");
 
                 $otherResource->addOtherResource($res_name, $res_description, $res_brand);
-                $otherResource->saveResource();
+                $otherResource->saveOtherResource();
 
                 break;
 
             case 7:
+
+                $otherResource = new OtherResource();
+                $otherResource->listOtherResources();
+
+                break;
+
+            case 8:
+
+                $otherResource   = new OtherResource();
+                $otherResourceId = readline("Enter the resource id: ");
+                $otherResource->getResourceById($otherResourceId);
+
+                break;
+
+            case 9:
+
+                $otherResource   = new OtherResource();
+                $otherResourceId = readline("Enter the resource id: ");
+                $otherResource->deleteResourceById($otherResourceId, 'other_resources');
+                break;
+
+            case 10:
 
                 $this->isRunning = false;
 
                 break;
 
             default:
-                echo "Invalid option";
+                echo "Invalid option, enter a number between 1 and 10";
                 break;
         }
     }
