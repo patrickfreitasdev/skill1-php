@@ -27,6 +27,10 @@ test('delete book', function () {
 
     $file = __DIR__ . '/../../storage/books.json';
 
+    if (file_exists($file)) {
+        unlink($file);
+    }
+
     foreach ($newBooks as $bookItem) {
         $book = new Book();
         $book->addBook($bookItem['name'], $bookItem['isbn'], $bookItem['publisher'], $bookItem['author']);

@@ -57,3 +57,7 @@ Other Resource JSON structure:
     "res_brand": "samsung"
 }
 ```
+
+### Testing
+
+We use PHP Pest for testing, run the command `./vendor/bin/pest;`
