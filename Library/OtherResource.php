@@ -17,13 +17,12 @@ class OtherResource extends LibraryResource
     private $res_description;
     private $res_brand;
 
-    public function __construct($res_name, $res_description, $res_brand, $resourceCategory)
+    public function __construct($res_name = '', $res_description = '', $res_brand = '', $resourceCategory = 'other_resources')
     {
         parent::__construct($resourceCategory);
         $this->res_name        = $res_name;
         $this->res_description = $res_description;
         $this->res_brand       = $res_brand;
-        $this->saveOtherResource();
     }
 
     /**

@@ -53,15 +53,20 @@ class LibraryResource
         if (file_exists('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json')) {
             $existingData = file_get_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json');
             $existingData = json_decode($existingData, true);
+
+            if (is_array($existingData)) {
+                // Make sure unique ID is generated because the PHP uniqid function may not be 100% unique
+                foreach ($existingData as $key => $value) {
+                    if ($value['resourceId'] === $orderedData['resourceId']) {
+                        $orderedData['resourceId'] = $this->generateUniqueId();
+                    }
+                }
+            } else {
+                $existingData = [];
+            }
+
         } else {
             $existingData = [];
-        }
-
-        // Make sure unique ID is generated because the PHP uniqid function may not be 100% unique
-        foreach ($existingData as $key => $value) {
-            if ($value['resourceId'] === $orderedData['resourceId']) {
-                $orderedData['resourceId'] = $this->generateUniqueId();
-            }
         }
 
         $existingData[] = $orderedData;

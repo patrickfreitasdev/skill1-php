@@ -141,14 +141,16 @@ class Library
 
             case 6:
 
-                $category = readline("Enter the resource category: ");
+                $category      = readline("Enter the resource category: ");
+               
 
                 $res_name        = readline("Enter the resource name: ");
                 $res_description = readline("Enter the resource description: ");
                 $res_brand       = readline("Enter the resource brand: ");
 
                 $otherResource = new OtherResource($res_name, $res_description, $res_brand, $category);
-
+                $otherResource->saveOtherResource();
+           
                 break;
 
             case 7:
