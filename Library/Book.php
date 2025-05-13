@@ -1,7 +1,15 @@
 <?php
-namespace Library;
 
-use Library\LibraryResource;
+/**
+ * Class Book
+ * @package Library
+ *
+ * This is the Book class for the library system
+ *
+ */
+
+ namespace Library;
+ use Library\LibraryResource;
 
 class Book extends LibraryResource
 {
@@ -71,7 +79,7 @@ class Book extends LibraryResource
     public function listBooks($books = [])
     {
         if (empty($books)) {
-            $books = parent::getFileItems();
+            $books = parent::getFileContentByFileName('books');
         }
 
         if (empty($books)) {
@@ -94,12 +102,12 @@ class Book extends LibraryResource
     /**
      * Get the book by the id and print out the book details
      * @param string $id
-     * @return array|void
+     * @return void
      */
     public function getBookById(string $id)
     {
 
-        $books = parent::getFileItems();
+        $books = parent::getFileContentByFileName('books');
         $key   = parent::locateKeyById($id);
 
         // Array search retruns the index,
@@ -127,7 +135,7 @@ class Book extends LibraryResource
      */
     public function sortBookByName()
     {
-        $books = parent::getFileItems();
+        $books = parent::getFileContentByFileName('books');
 
         if (empty($books)) {
             echo "No books to sort.\n";

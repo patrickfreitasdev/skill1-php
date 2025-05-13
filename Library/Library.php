@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Class Library
+ * @package Library
+ *
+ * This is the main class for the library system
+ *
+ */
+
 namespace Library;
 
 class Library

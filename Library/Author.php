@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Class Author
+ * @package Library
+ *
+ * This is the Author class for the library system
+ *
+ */
+
 namespace Library;
 
 class Author

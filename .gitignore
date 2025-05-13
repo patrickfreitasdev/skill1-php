@@ -3,3 +3,4 @@ storage/*
 
 # Ignore .vscode directory
 .vscode/*
+/vendor/

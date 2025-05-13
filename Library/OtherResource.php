@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * Class OtherResource
+ * @package Library
+ *
+ * This is the OtherResource class for the library system
+ *
+ */
+
 namespace Library;
 
 class OtherResource extends LibraryResource

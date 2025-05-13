@@ -1,5 +1,4 @@
 <?php
-namespace Library;
 
 /**
  * Class LibraryResource
@@ -8,6 +7,8 @@ namespace Library;
  * This is a blueprint for all resources in the library including books, magazines, etc.
  *
  */
+
+namespace Library;
 
 class LibraryResource
 {
@@ -91,7 +92,7 @@ class LibraryResource
             } else {
                 return [];
             }
-            
+
         } else {
             return [];
         }
@@ -141,5 +142,15 @@ class LibraryResource
     protected function getFileItems(): array
     {
         return $this->fileItems ?? [];
+    }
+
+    /**
+     * Count the number of items in the file
+     * @param string $fileName
+     * @return int
+     */
+    public function countResourceItems($fileName = 'other_resources'): int
+    {
+        return count($this->getFileContentByFileName($fileName));
     }
 }

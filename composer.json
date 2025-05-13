@@ -1,0 +1,20 @@
+{
+    "autoload": {
+      "psr-4": {
+        "Library\\": "Library/"
+      }
+    },
+    "autoload-dev": {
+      "psr-4": {
+        "Tests\\": "tests/"
+      }
+    },
+    "require-dev": {
+      "pestphp/pest": "^3.8"
+    },
+    "config": {
+      "allow-plugins": {
+        "pestphp/pest-plugin": true
+      }
+    }
+  }
