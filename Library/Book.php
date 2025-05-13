@@ -8,8 +8,9 @@
  *
  */
 
- namespace Library;
- use Library\LibraryResource;
+namespace Library;
+
+use Library\LibraryResource;
 
 class Book extends LibraryResource
 {

@@ -17,22 +17,13 @@ class OtherResource extends LibraryResource
     private $res_description;
     private $res_brand;
 
-    public function __construct(string $resourceCategory = 'other_resources')
+    public function __construct($res_name, $res_description, $res_brand, $resourceCategory)
     {
         parent::__construct($resourceCategory);
-    }
-
-    /**
-     * Add the resource to the JSON file
-     * @param string $res_name
-     * @param string $res_description
-     * @param string $res_brand
-     */
-    public function addOtherResource(string $res_name, string $res_description, string $res_brand)
-    {
         $this->res_name        = $res_name;
         $this->res_description = $res_description;
         $this->res_brand       = $res_brand;
+        $this->saveOtherResource();
     }
 
     /**
