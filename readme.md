@@ -22,6 +22,8 @@ Maddington Library management system is designed to help to manage the books and
 
 To start the application, run the following command in your terminal:
 
+`composer install`
+
 `php index.php`
 
 ### File storage
