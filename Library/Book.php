@@ -146,4 +146,29 @@ class Book extends LibraryResource
         $this->listBooks($books);
     }
 
+    /**
+     * Polymorphism, delete item
+     * @param string $id
+     * @param string $filename
+     * @return void
+     */
+    public function deleteResourceById(string $id, string $filename): void
+    {
+
+        $items = parent::getFileContentByFileName($filename);
+        $key   = $this->locateKeyById($id);
+
+        if ($key !== false) {
+            unset($items[$key]);
+
+            $jsonData = json_encode($items, JSON_PRETTY_PRINT);
+            file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $filename . '.json', $jsonData);
+
+            echo "Item deleted";
+        } else {
+            echo "Item not found";
+        }
+
+    }
+
 }

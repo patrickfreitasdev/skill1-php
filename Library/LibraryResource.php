@@ -71,7 +71,7 @@ class LibraryResource
 
         $existingData[] = $orderedData;
 
-        $jsonData = json_encode($existingData);
+        $jsonData = json_encode($existingData, JSON_PRETTY_PRINT);
 
         file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $fileName . '.json', $jsonData);
 
@@ -130,7 +130,7 @@ class LibraryResource
         if ($key !== false) {
             unset($items[$key]);
 
-            $jsonData = json_encode($items);
+            $jsonData = json_encode($items, JSON_PRETTY_PRINT);
             file_put_contents('storage' . \DIRECTORY_SEPARATOR  . $filename . '.json', $jsonData);
 
             echo "Item deleted";
