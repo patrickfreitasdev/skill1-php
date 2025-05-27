@@ -13,9 +13,9 @@ namespace Library;
 class Library
 {
 
-    private $isRunning;
-    private $firstAccess;
-    private $userInput;
+    private string $isRunning;
+    private string $firstAccess;
+    private string $userInput;
 
     public function __construct()
     {
@@ -27,7 +27,7 @@ class Library
      * Init the library system, here we will keep the loop
      * running until exit is set to false (option 4 in the menu)
      */
-    public function init()
+    public function init(): void
     {
         $this->isRunning = true;
 
@@ -43,10 +43,9 @@ class Library
      */
     private function getWelcomeMessage(): string
     {
-        $welcomeMessage = "\n=============================\n
+        return "\n=============================\n
         Welcome to Maddington Library book management system \n
         Select one option below:";
-        return $welcomeMessage;
     }
 
     /**
@@ -55,7 +54,7 @@ class Library
      */
     private function getMenu(): string
     {
-        $menu = "\n=============================\n
+        return "\n=============================\n
         1. Add a new book \n
         2. List all books \n
         3. Search for a book \n
@@ -67,7 +66,6 @@ class Library
         9. Delete a resource \n
         10. Exit
         \n=============================\n";
-        return $menu;
     }
 
     /**
@@ -82,16 +80,15 @@ class Library
             $this->firstAccess = false;
         }
 
-        $readLine = (int) readline($this->getMenu() . "Enter your choice: ");
+        return (int) readline($this->getMenu() . "Enter your choice: ");
 
-        return $readLine;
     }
 
     /**
      * Handle the menu selection
      * @return void
      */
-    private function handleMenuSelection()
+    private function handleMenuSelection(): void
     {
 
         switch ($this->userInput) {

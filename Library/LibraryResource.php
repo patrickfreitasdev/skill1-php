@@ -13,9 +13,9 @@ namespace Library;
 class LibraryResource
 {
 
-    protected $resourceCategory;
-    protected $resourceId;
-    private $fileItems;
+    protected string $resourceCategory;
+    protected string $resourceId;
+    private array $fileItems;
 
     public function __construct($resourceCategory)
     {
@@ -41,7 +41,7 @@ class LibraryResource
      * @param array $resourceData
      * @return void
      */
-    protected function saveResourceInJSON($fileName, $resourceData): void
+    protected function saveResourceInJSON(string $fileName, array $resourceData): void
     {
 
         $orderedData = [
@@ -154,7 +154,7 @@ class LibraryResource
      * @param string $fileName
      * @return int
      */
-    public function countResourceItems($fileName = 'other_resources'): int
+    public function countResourceItems(string $fileName = 'other_resources'): int
     {
         return count($this->getFileContentByFileName($fileName));
     }

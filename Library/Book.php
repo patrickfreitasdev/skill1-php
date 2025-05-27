@@ -15,20 +15,16 @@ use Library\LibraryResource;
 class Book extends LibraryResource
 {
 
-    private $name;
-    private $isbn;
-    private $publisher;
+    private string $name;
+    private string $isbn;
+    private string $publisher;
     private Author $author;
 
     /**
      *
      * We can hardcode the books category here, but in future we could have it dynamic to accept other types example magazines, etc.
-     * @param string $resourceCategory
-     * @param string $name
-     * @param string $isbn
-     * @param string $publisher
-     * @param string $author
-     */
+     **/
+
     public function __construct()
     {
         parent::__construct("books");
@@ -41,7 +37,7 @@ class Book extends LibraryResource
      * @param string $publisher
      * @param string $author
      */
-    public function addBook($name, $isbn, $publisher, $author)
+    public function addBook(string $name, string $isbn, string $publisher, string $author): void
     {
         $this->name      = $name;
         $this->isbn      = $isbn;
@@ -69,7 +65,7 @@ class Book extends LibraryResource
     /**
      * Save the book to the JSON file
      */
-    public function saveBook()
+    public function saveBook(): void
     {
         parent::saveResourceInJSON('books', $this->getBookItem());
     }
@@ -77,7 +73,7 @@ class Book extends LibraryResource
     /**
      * List all the books from the JSON file
      */
-    public function listBooks($books = [])
+    public function listBooks($books = []): void
     {
         if (empty($books)) {
             $books = parent::getFileContentByFileName('books');
@@ -105,7 +101,7 @@ class Book extends LibraryResource
      * @param string $id
      * @return void
      */
-    public function getBookById(string $id)
+    public function getBookById(string $id): void
     {
 
         $books = parent::getFileContentByFileName('books');
@@ -134,7 +130,7 @@ class Book extends LibraryResource
      * @return void
      *
      */
-    public function sortBookByName()
+    public function sortBookByName(): void
     {
         $books = parent::getFileContentByFileName('books');
 

@@ -13,9 +13,9 @@ namespace Library;
 class OtherResource extends LibraryResource
 {
 
-    private $res_name;
-    private $res_description;
-    private $res_brand;
+    private string $res_name;
+    private string $res_description;
+    private string $res_brand;
 
     public function __construct($res_name = '', $res_description = '', $res_brand = '', $resourceCategory = 'other_resources')
     {
@@ -43,7 +43,7 @@ class OtherResource extends LibraryResource
     /**
      * Save the resource to the JSON file
      */
-    public function saveOtherResource()
+    public function saveOtherResource(): void
     {
         parent::saveResourceInJSON('other_resources', $this->getOtherResourceItem());
     }
@@ -51,9 +51,9 @@ class OtherResource extends LibraryResource
     /**
      * Get the resource by the id and print out the resource details
      * @param string $id
-     * @return array|void
+     * @return void
      */
-    public function getResourceById(string $id)
+    public function getResourceById(string $id): void
     {
 
         $otherResources = parent::getFileItems();
@@ -85,7 +85,7 @@ class OtherResource extends LibraryResource
     /**
      * List all the resources from the JSON file
      */
-    public function listOtherResources($otherResources = [])
+    public function listOtherResources($otherResources = []): void
     {
         if (empty($otherResources)) {
             $otherResources = parent::getFileItems();
